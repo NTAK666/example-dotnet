@@ -14,7 +14,7 @@ public class AppDbContext : IdentityDbContext<User>
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;
     public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
-    
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -41,15 +41,20 @@ public class AppDbContext : IdentityDbContext<User>
     private void SeedData(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        var listCategoryId = new List<string>();
+
         modelBuilder.Entity<Category>().HasData(new Faker<Category>()
             .RuleFor(c => c.Name, f => f.Name.JobTitle())
+            .FinishWith((f, c) => { listCategoryId.Add(c.Id); })
             .Generate(10));
+
         modelBuilder.Entity<Product>().HasData(new Faker<Product>()
             .RuleFor(c => c.Name, f => f.Commerce.ProductName())
             .RuleFor(c => c.Price, f => f.Commerce.Price())
             .RuleFor(c => c.Image, f => "https://api.lorem.space/image/watch?w=300&h=500")
             .RuleFor(c => c.Description, f => f.Commerce.ProductDescription())
-            .Generate(10));
+            .RuleFor(c => c.CategoryId, f => f.PickRandom(listCategoryId))
+            .Generate(30));
     }
 
 

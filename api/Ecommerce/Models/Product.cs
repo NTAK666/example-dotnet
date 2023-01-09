@@ -8,4 +8,5 @@ public class Product : BaseEntity
     public string? Image { get; set; } = null!;
 
     public Category? Category { get; set; } = null!;
+    public string? CategoryId { get; set; } = null!;
 }

@@ -40,4 +40,35 @@ public class ProductController : BaseController
 
         return CustomResult("Success", productPaginate);
     }
+
+    [HttpGet("get-by-category/{categoryId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginateDto<List<Product>>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(List<string>))]
+    public async Task<IActionResult> GetByCategory([FromRoute] string categoryId,
+        [FromQuery] PaginationFilter paginationFilter)
+    {
+        var pagination = new PaginationFilter(paginationFilter.PageNumber, paginationFilter.PageSize);
+        var response = await _unitOfWork.ProductRepository.Paginate(pagination,
+            predicate: p => p.CategoryId == categoryId,
+            relations: "Category");
+
+        var route = Request.Path.Value!;
+
+        var productPaginate =
+            PaginationHelper.CreatePagedResponse(response.Data.ToList(),
+                pagination, response.TotalRecord, _uriService, route);
+
+        return CustomResult("Success", productPaginate);
+    }
+
+    [HttpGet("get/{productId}")]
+    public async Task<IActionResult> GetById([FromRoute] string productId)
+    {
+        var product = await _unitOfWork.ProductRepository.FindById(productId, "Category");
+
+        if (product == null) return BadRequest();
+
+        return CustomResult("Success", product);
+    }
+
 }
