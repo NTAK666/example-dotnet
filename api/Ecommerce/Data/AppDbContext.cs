@@ -5,6 +5,7 @@ using Ecommerce.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Ecommerce.Data;
 
@@ -22,6 +23,7 @@ public class AppDbContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
         GlobalFilter(modelBuilder);
         SeedRoles(modelBuilder);
         SeedUser(modelBuilder);
@@ -45,13 +47,26 @@ public class AppDbContext : IdentityDbContext<User>
 
         modelBuilder.Entity<Category>().HasData(new Faker<Category>()
             .RuleFor(c => c.Name, f => f.Name.JobTitle())
+            .RuleFor(c => c.Image, f => "https://picsum.photos/seed/picsum/1080/800")
             .FinishWith((f, c) => { listCategoryId.Add(c.Id); })
             .Generate(10));
 
+        modelBuilder.Entity<Product>().Property(p => p.Gallary).HasConversion(
+            listOfStringNames => JsonConvert.SerializeObject(listOfStringNames),
+            namesJsonRepresentation =>
+                JsonConvert.DeserializeObject<List<string>>(namesJsonRepresentation) ?? new List<string>());
+        
         modelBuilder.Entity<Product>().HasData(new Faker<Product>()
             .RuleFor(c => c.Name, f => f.Commerce.ProductName())
             .RuleFor(c => c.Price, f => f.Commerce.Price())
-            .RuleFor(c => c.Image, f => "https://api.lorem.space/image/watch?w=300&h=500")
+            .RuleFor(c => c.Image, f => "https://picsum.photos/seed/picsum/1080/800")
+            .RuleFor(c => c.Gallary, new List<string>
+            {
+                "https://picsum.photos/seed/picsum/1080/800",
+                "https://picsum.photos/seed/picsum/1080/800",
+                "https://picsum.photos/seed/picsum/1080/800",
+                "https://picsum.photos/seed/picsum/1080/800",
+            })
             .RuleFor(c => c.Description, f => f.Commerce.ProductDescription())
             .RuleFor(c => c.CategoryId, f => f.PickRandom(listCategoryId))
             .Generate(30));
