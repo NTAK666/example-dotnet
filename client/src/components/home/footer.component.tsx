@@ -7,7 +7,6 @@ const FooterComponent: FC<FooterComponentProps> = ( {} ) => {
 		<footer className='bg-white pt-16 pb-12 border-t border-gray-100'>
 			<div className='container grid grid-cols-3'>
 				<div className='col-span-1 space-y-8'>
-					<img src='assets/images/logo.svg' alt='logo' className='w-30'/>
 					<div className='mr-2'>
 						<p className='text-gray-500'>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic?
@@ -48,7 +47,9 @@ const FooterComponent: FC<FooterComponentProps> = ( {} ) => {
 							<h3 className='text-sm font-semibold text-gray-400 uppercase tracking-wider'>Support</h3>
 							<div className='mt-4 space-y-4'>
 								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Pricing</a>
-								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Documentation</a>
+								<a
+									href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Documentation
+								</a>
 								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Guides</a>
 								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>API Status</a>
 							</div>
@@ -69,7 +70,9 @@ const FooterComponent: FC<FooterComponentProps> = ( {} ) => {
 							<h3 className='text-sm font-semibold text-gray-400 uppercase tracking-wider'>Support</h3>
 							<div className='mt-4 space-y-4'>
 								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Pricing</a>
-								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Documentation</a>
+								<a
+									href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Documentation
+								</a>
 								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>Guides</a>
 								<a href='src/components#' className='text-base text-gray-500 hover:text-gray-900 block'>API Status</a>
 							</div>

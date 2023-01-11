@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import { AuthContext, IAuthContext } from "../contexts/auth.context";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getOrders, OrderResponse } from "../services/order/order";
+import { getOrders } from "../services/order/order.services";
 
 type ProfilePageProps = {}
 
@@ -80,7 +80,7 @@ const ProfilePage: FC<ProfilePageProps> = ( {} ) => {
 								</div>
 								<div className='space-y-1'>
 									<h4>Total : {
-										item?.orderDetails.reduce(( acc, item ) => {
+										item?.orderDetails.reduce(( acc: number, item: { product: { price: string; }; quantity: number; } ) => {
 											return acc + (parseInt(item.product.price) * item.quantity);
 										}, 0)
 									}$
@@ -88,7 +88,7 @@ const ProfilePage: FC<ProfilePageProps> = ( {} ) => {
 									<h4 className='text-gray-700 '>{ item.status == 0 ? "Pending" : "Payed" }</h4>
 									<ul className='space-y-2'>
 										{
-											item.orderDetails.map(( item, index ) => {
+											item.orderDetails.map(( item: { product: { id: any; name: string; }; }, index: any ) => {
 												return <Link to={ `/product/${ item.product.id }` }>
 													<li>{ item.product.name }</li>
 												</Link>

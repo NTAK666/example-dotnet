@@ -7,7 +7,7 @@ import { TOKEN_TYPE } from "../../libs/constant";
 export const createOrder = async ( order: CreateOrder ) => {
 	return await axios.post("/orders/add-order", order, {
 		headers: {
-			Authorization: 'Bearer ' +Cookies.get(TOKEN_TYPE)
+			Authorization: 'Bearer ' + Cookies.get(TOKEN_TYPE)
 		}
 	}).then(res => res.data);
 }
@@ -15,7 +15,7 @@ export const createOrder = async ( order: CreateOrder ) => {
 export const getOrders = async (): Promise<PagedResponse<OrderResponse[]>> => {
 	return await axios.get('/orders/get-order-by-user', {
 		headers: {
-			Authorization: 'Bearer ' +Cookies.get(TOKEN_TYPE)
+			Authorization: 'Bearer ' + Cookies.get(TOKEN_TYPE)
 		}
 	}).then(res => res.data);
 }

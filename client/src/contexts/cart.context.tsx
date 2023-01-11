@@ -74,7 +74,7 @@ const CartProvider: React.FC<ICartProvider> = ( { children } ) => {
 		setCart({
 			carts: []
 		})
-		saveToLocal();
+		localStorage.removeItem("cart");
 	}
 
 	return (

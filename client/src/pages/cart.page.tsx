@@ -3,7 +3,7 @@ import { CartContext, ICartContext } from "../contexts/cart.context";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { useMutation } from "@tanstack/react-query";
-import { createOrder, CreateOrderItem } from "../services/order/order";
+import { createOrder, CreateOrderItem } from "../services/order/order.services";
 
 type CartPageProps = {}
 

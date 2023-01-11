@@ -201,7 +201,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 								<div className='flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max'>
 									<div
 										className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'
-										onClick={ () => setQuantityValue(quantityValue <= 0 ? 0 : quantityValue - 1) }>-
+										onClick={ () => setQuantityValue(quantityValue <= 1 ? 1 : quantityValue - 1) }>-
 									</div>
 									<div className='h-8 w-8 text-base flex items-center justify-center'>{ quantityValue }</div>
 									<div
